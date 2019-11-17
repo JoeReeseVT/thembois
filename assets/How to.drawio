@@ -1,0 +1,73 @@
+<mxfile host="www.draw.io" modified="2019-11-14T23:07:21.762Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36" etag="R1sdP9arP6w1BxK9EbK3" version="12.2.6" type="github" pages="1">
+  <diagram id="YEZDzAKXhJv6_w8gFxFo" name="Page-1">
+    <mxGraphModel dx="1408" dy="674" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="qMobVTwlq638J_fk0t7--1" value="&lt;font style=&quot;font-size: 12px&quot;&gt;Configure GPIO Port for LCD and SPI&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="160" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--2" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="qMobVTwlq638J_fk0t7--1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="290" as="sourcePoint"/>
+            <mxPoint x="220" y="290" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--3" value="Use LCD display functions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="410" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--4" value="Split string by manipulatively selecting pointers" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="290" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--5" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="320" as="sourcePoint"/>
+            <mxPoint x="360" y="320" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--6" value="Send over SPI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="290" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--7" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="480" y="320" as="sourcePoint"/>
+            <mxPoint x="560" y="320" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--8" value="Interpret/get data" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="290" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--9" value="&lt;font style=&quot;font-size: 12px&quot;&gt;Configure GPIO Port for LCD and SPI&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="160" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--10" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="qMobVTwlq638J_fk0t7--9" target="qMobVTwlq638J_fk0t7--8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="280" as="sourcePoint"/>
+            <mxPoint x="660" y="230" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--11" value="Use LCD display functions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="410" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--13" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="qMobVTwlq638J_fk0t7--4" target="qMobVTwlq638J_fk0t7--3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="400" as="sourcePoint"/>
+            <mxPoint x="250" y="350" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--14" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="qMobVTwlq638J_fk0t7--8" target="qMobVTwlq638J_fk0t7--11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="550" as="sourcePoint"/>
+            <mxPoint x="600" y="500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--15" value="Master&lt;br&gt;STM32" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="170" y="80" width="100" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="qMobVTwlq638J_fk0t7--16" value="Slave&lt;br&gt;STM32" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="570" y="80" width="100" height="40" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
