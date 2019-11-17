@@ -13,10 +13,6 @@
   #define STM32_H
 #endif
 
-#include "stm32l476xx.h"
-#include "lcd.h"
-#include <stdlib.h>
-
 void delay(void) {
   unsigned long count;
   for(count = 0; count < 500000; count++) {} 
