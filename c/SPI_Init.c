@@ -1,7 +1,7 @@
 #include "stm32l476xx.h"
 #include "LCD.h"
 
-void spi_init(void) {
+void SPI_Init(void) {
   /* Enable clocks */
   RCC->AHB2ENR |= RCC_AHB2ENR_GPIOEEN;
   
