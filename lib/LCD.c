@@ -125,129 +125,129 @@ uint8_t BAR = 0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void LCD_PIN_Init(void){
-	// LCD (24 segments, 4 commons, multiplexed 1/4 duty, 1/3 bias) on DIP28 connector
-	//   VLCD = PC3
-	//   COM0 = PA8     COM1  = PA9      COM2  = PA10    COM3  = PB9
-	//   SEG0 = PA7     SEG6  = PD11     SEG12 = PB5     SEG18 = PD8
-	//   SEG1 = PC5     SEG7  = PD13     SEG13 = PC8     SEG19 = PB14
-	//   SEG2 = PB1     SEG8  = PD15     SEG14 = PC6     SEG20 = PB12
-	//   SEG3 = PB13    SEG9  = PC7      SEG15 = PD14    SEG21 = PB0
-	//   SEG4 = PB15    SEG10 = PA15     SEG16 = PD12    SEG22 = PC4
-	//   SEG5 = PD9     SEG11 = PB4      SEG17 = PD10    SEG23 = PA6
-	
-	// Enable the clock to GPIO Ports A, B, C, and D
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIODEN;
+  // LCD (24 segments, 4 commons, multiplexed 1/4 duty, 1/3 bias) on DIP28 connector
+  //   VLCD = PC3
+  //   COM0 = PA8     COM1  = PA9      COM2  = PA10    COM3  = PB9
+  //   SEG0 = PA7     SEG6  = PD11     SEG12 = PB5     SEG18 = PD8
+  //   SEG1 = PC5     SEG7  = PD13     SEG13 = PC8     SEG19 = PB14
+  //   SEG2 = PB1     SEG8  = PD15     SEG14 = PC6     SEG20 = PB12
+  //   SEG3 = PB13    SEG9  = PC7      SEG15 = PD14    SEG21 = PB0
+  //   SEG4 = PB15    SEG10 = PA15     SEG16 = PD12    SEG22 = PC4
+  //   SEG5 = PD9     SEG11 = PB4      SEG17 = PD10    SEG23 = PA6
+  
+  // Enable the clock to GPIO Ports A, B, C, and D
+  RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+  RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+  RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
+  RCC->AHB2ENR |= RCC_AHB2ENR_GPIODEN;
 
-	// Configure Port A Pins 6, 7, 8, 9, 10, 15 as Alternate Function Mode
-	GPIOA->MODER &= ~(0xC03FF000);
-	GPIOA->MODER |= 0x802AA000;
+  // Configure Port A Pins 6, 7, 8, 9, 10, 15 as Alternate Function Mode
+  GPIOA->MODER &= ~(0xC03FF000);
+  GPIOA->MODER |=   0x802AA000;
 
-	// Configure Port A Pins 6, 7, 8, 9, 10, 15 as Alternate Function 11
+  // Configure Port A Pins 6, 7, 8, 9, 10, 15 as Alternate Function 11
   GPIOA->AFR[0] &= ~(0xFF000000);
-	GPIOA->AFR[0] |= 0xBB000000;
-	GPIOA->AFR[1] &= ~(0xF0000FFF);
-	GPIOA->AFR[1] |= 0xB0000BBB;
+  GPIOA->AFR[0] |=   0xBB000000;
+  GPIOA->AFR[1] &= ~(0xF0000FFF);
+  GPIOA->AFR[1] |=   0xB0000BBB;
 
-	// Configre Port B Pins 0, 1, 4, 5, 9, 12, 13, 14, 15 as AF Mode
-	GPIOB->MODER &= ~(0xFF0C0F0F);
-	GPIOB->MODER |= 0xAA080A0A;
-	
-	// Configre Port B Pins 0, 1, 4, 5, 9, 12, 13, 14, 15 as AF 11
-	GPIOB->AFR[0] &= ~(0x00FF00EF);
-	GPIOB->AFR[0] |= 0x00BB00BB;
-	GPIOB->AFR[1] &= ~(0xFFFF00F0);
-	GPIOB->AFR[1] |= 0xBBBB00B0;
-	
-	// Configure Port C Pins 3, 4, 5, 6, 7, 8 as AF Mode
-	GPIOC->MODER &= ~(0x0003FFC0);
-	GPIOC->MODER |= 0x0002AA80;
-	
-	// Configure Port C Pins 3, 4, 5, 6, 7, 8 as AF 11
-	GPIOC->AFR[0] &= ~(0xFFFFF000);
-	GPIOC->AFR[0] |= 0xBBBBB000;
-	GPIOC->AFR[1] &= ~(0x0000000F);
-	GPIOC->AFR[1] |= 0x0000000B;
-	
-	// Configure Port D Pins 8, 9, 10, 11, 12, 13, 14, 15 as AF Mode
-	GPIOD->MODER &= ~(0xFFFF0000);
-	GPIOD->MODER |= 0xAAAA0000;
-	
-	// Configure Port D Pins 8, 9, 10, 11, 12, 13, 14, 15 as AF 11
-	GPIOD->AFR[0] &= ~(0x00000000);
-	GPIOD->AFR[0] |= 0x00000000;
-	GPIOD->AFR[1] &= ~(0xFFFFFFFF);
-	GPIOD->AFR[1] |= 0xBBBBBBBB;
-	
+  // Configre Port B Pins 0, 1, 4, 5, 9, 12, 13, 14, 15 as AF Mode
+  GPIOB->MODER &= ~(0xFF0C0F0F);
+  GPIOB->MODER |=   0xAA080A0A;
+  
+  // Configre Port B Pins 0, 1, 4, 5, 9, 12, 13, 14, 15 as AF 11
+  GPIOB->AFR[0] &= ~(0x00FF00EF);
+  GPIOB->AFR[0] |=   0x00BB00BB;
+  GPIOB->AFR[1] &= ~(0xFFFF00F0);
+  GPIOB->AFR[1] |=   0xBBBB00B0;
+  
+  // Configure Port C Pins 3, 4, 5, 6, 7, 8 as AF Mode
+  GPIOC->MODER &= ~(0x0003FFC0);
+  GPIOC->MODER |=   0x0002AA80;
+  
+  // Configure Port C Pins 3, 4, 5, 6, 7, 8 as AF 11
+  GPIOC->AFR[0] &= ~(0xFFFFF000);
+  GPIOC->AFR[0] |=   0xBBBBB000;
+  GPIOC->AFR[1] &= ~(0x0000000F);
+  GPIOC->AFR[1] |=   0x0000000B;
+  
+  // Configure Port D Pins 8, 9, 10, 11, 12, 13, 14, 15 as AF Mode
+  GPIOD->MODER &= ~(0xFFFF0000);
+  GPIOD->MODER |=   0xAAAA0000;
+  
+  // Configure Port D Pins 8, 9, 10, 11, 12, 13, 14, 15 as AF 11
+  GPIOD->AFR[0] &= ~(0x00000000);
+  GPIOD->AFR[0] |=   0x00000000;
+  GPIOD->AFR[1] &= ~(0xFFFFFFFF);
+  GPIOD->AFR[1] |=   0xBBBBBBBB;
+  
 }
 
 void LCD_Configure(void){
-	
-	// Configure BIAS[1:0] bits of LCD_CR and set the bias to 1/3 (10)
-	LCD->CR &= ~(LCD_CR_BIAS);
-	LCD->CR |= LCD_CR_BIAS_1;
-	
-	// Configure DUTY[2:0] bits of LCD_CR to 1/4 (011)
-	LCD->CR &= ~(LCD_CR_DUTY);
-	LCD->CR |= LCD_CR_DUTY_0;
-	LCD->CR |= LCD_CR_DUTY_1;
-	
-	// Configure CC[2:0] bits of LCD_FCR to max (111)
-	LCD->FCR |= LCD_FCR_CC_0;
-	LCD->FCR |= LCD_FCR_CC_1;
-	LCD->FCR |= LCD_FCR_CC_2;
-	
-	// Configure PON[2:0] bits of LCD_FCR to max (111)
-	LCD->FCR |= LCD_FCR_PON_0;
-	LCD->FCR |= LCD_FCR_PON_1;
-	LCD->FCR |= LCD_FCR_PON_2;
-	
-	// Disable MUX bit of LCD_CR
-	LCD->CR &= ~(LCD_CR_MUX_SEG);
-	
-	// Set voltage source to internal (0)
-	LCD->CR &= ~(LCD_CR_VSEL);
-	
-	// Wait until synchronized
-	while ((LCD->SR & LCD_SR_FCRSR) != LCD_SR_FCRSR) {;}
-	
-	// Set LCD Enable bit
-	LCD->CR |= LCD_CR_LCDEN;
-	
-	// Wait until LCD is ready
-	while ((LCD->SR & LCD_SR_ENS) != LCD_SR_ENS) {;}
-	while ((LCD->SR & LCD_SR_RDY) != LCD_SR_RDY) {;} 
+  
+  // Configure BIAS[1:0] bits of LCD_CR and set the bias to 1/3 (10)
+  LCD->CR &= ~(LCD_CR_BIAS);
+  LCD->CR |= LCD_CR_BIAS_1;
+  
+  // Configure DUTY[2:0] bits of LCD_CR to 1/4 (011)
+  LCD->CR &= ~(LCD_CR_DUTY);
+  LCD->CR |= LCD_CR_DUTY_0;
+  LCD->CR |= LCD_CR_DUTY_1;
+  
+  // Configure CC[2:0] bits of LCD_FCR to max (111)
+  LCD->FCR |= LCD_FCR_CC_0;
+  LCD->FCR |= LCD_FCR_CC_1;
+  LCD->FCR |= LCD_FCR_CC_2;
+  
+  // Configure PON[2:0] bits of LCD_FCR to max (111)
+  LCD->FCR |= LCD_FCR_PON_0;
+  LCD->FCR |= LCD_FCR_PON_1;
+  LCD->FCR |= LCD_FCR_PON_2;
+  
+  // Disable MUX bit of LCD_CR
+  LCD->CR &= ~(LCD_CR_MUX_SEG);
+  
+  // Set voltage source to internal (0)
+  LCD->CR &= ~(LCD_CR_VSEL);
+  
+  // Wait until synchronized
+  while ((LCD->SR & LCD_SR_FCRSR) != LCD_SR_FCRSR) {;}
+  
+  // Set LCD Enable bit
+  LCD->CR |= LCD_CR_LCDEN;
+  
+  // Wait until LCD is ready
+  while ((LCD->SR & LCD_SR_ENS) != LCD_SR_ENS) {;}
+  while ((LCD->SR & LCD_SR_RDY) != LCD_SR_RDY) {;} 
 }
 
-void LCD_DisplayString(uint8_t* ptr){	
-	// For every character in the 6-digit string,
-	// write that character to the appropriate position
-	uint8_t pos;
-	uint8_t* curChar;
-	bool col = 0;
-	bool dot = 0;
-	
-//	LCD_Clear();
-	
+void LCD_DisplayString(uint8_t* ptr){  
+  // For every character in the 6-digit string,
+  // write that character to the appropriate position
+  uint8_t pos;
+  uint8_t* curChar;
+  bool col = 0;
+  bool dot = 0;
+  
+//  LCD_Clear();
+  
   for (pos = 0; pos < 6; pos++) {
-		curChar = ptr;
-		ptr++;
-		
-		dot = (*ptr == '.');
-		col = (*ptr == ':');
-		
-		ptr += dot + col;
-		
-		LCD_WriteChar(curChar, dot, col, pos);
-	}
+    curChar = ptr;
+    ptr++;
+    
+    dot = (*ptr == '.');
+    col = (*ptr == ':');
+    
+    ptr += dot + col;
+    
+    LCD_WriteChar(curChar, dot, col, pos);
+  }
 }
 
 void LCD_Display_Name(void){
   uint8_t NAME[] = "REESE";
-	
-	LCD_DisplayString(&NAME[0]);
+  
+  LCD_DisplayString(&NAME[0]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,85 +255,85 @@ void LCD_Display_Name(void){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void LCD_Initialization(void){
-	LCD_PIN_Init();
-	LCD_Clock_Init();	
-	LCD_Configure();
-	LCD_Clear();
+  LCD_PIN_Init();
+  LCD_Clock_Init();  
+  LCD_Configure();
+  LCD_Clear();
 }
 
 
 void LCD_Clock_Init(void){
-	// Enable write access to Backup domain
-	if ( (RCC->APB1ENR1 & RCC_APB1ENR1_PWREN) == 0)
-		RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;	// Power interface clock enable
-	(void) RCC->APB1ENR1;  // Delay after an RCC peripheral clock enabling
-	
-	// Select LSE as RTC clock soucre 
-	if ( (PWR->CR1 & PWR_CR1_DBP) == 0) {
-		PWR->CR1  |= PWR_CR1_DBP;				  			// Enable write access to Backup domain
-		while((PWR->CR1 & PWR_CR1_DBP) == 0);  	// Wait for Backup domain Write protection disable
-	}
-	
-	// Reset LSEON and LSEBYP bits before configuring the LSE
-	RCC->BDCR &= ~(RCC_BDCR_LSEON | RCC_BDCR_LSEBYP);
+  // Enable write access to Backup domain
+  if ( (RCC->APB1ENR1 & RCC_APB1ENR1_PWREN) == 0)
+    RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;  // Power interface clock enable
+  (void) RCC->APB1ENR1;  // Delay after an RCC peripheral clock enabling
+  
+  // Select LSE as RTC clock soucre 
+  if ( (PWR->CR1 & PWR_CR1_DBP) == 0) {
+    PWR->CR1  |= PWR_CR1_DBP;                // Enable write access to Backup domain
+    while((PWR->CR1 & PWR_CR1_DBP) == 0);    // Wait for Backup domain Write protection disable
+  }
+  
+  // Reset LSEON and LSEBYP bits before configuring the LSE
+  RCC->BDCR &= ~(RCC_BDCR_LSEON | RCC_BDCR_LSEBYP);
 
-	// RTC Clock selection can be changed only if the Backup Domain is reset
-	RCC->BDCR |=  RCC_BDCR_BDRST;
-	RCC->BDCR &= ~RCC_BDCR_BDRST;
-	
-	// Note from STM32L4 Reference Manual: 	
-  // RTC/LCD Clock:  (1) LSE is in the Backup domain. (2) HSE and LSI are not.	
-	while((RCC->BDCR & RCC_BDCR_LSERDY) == 0){  // Wait until LSE clock ready
-		RCC->BDCR |= RCC_BDCR_LSEON;
-	}
-	
-	// Select LSE as RTC clock source
-	// BDCR = Backup Domain Control Register 
-	RCC->BDCR	&= ~RCC_BDCR_RTCSEL;	  // RTCSEL[1:0]: 00 = No Clock, 01 = LSE, 10 = LSI, 11 = HSE
-	RCC->BDCR	|= RCC_BDCR_RTCSEL_0;   // Select LSE as RTC clock	
-	
-	RCC->APB1ENR1 &= ~RCC_APB1ENR1_PWREN;	// Power interface clock disable
-	
-	// Wait for the external capacitor Cext which is connected to the VLCD pin is charged (approximately 2ms for Cext=1uF) 
-	
-	// Enable LCD peripheral Clock
-	RCC->APB1ENR1 |= RCC_APB1ENR1_LCDEN;
-	
-	// Enable SYSCFG 
-	// RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+  // RTC Clock selection can be changed only if the Backup Domain is reset
+  RCC->BDCR |=  RCC_BDCR_BDRST;
+  RCC->BDCR &= ~RCC_BDCR_BDRST;
+  
+  // Note from STM32L4 Reference Manual:   
+  // RTC/LCD Clock:  (1) LSE is in the Backup domain. (2) HSE and LSI are not.  
+  while((RCC->BDCR & RCC_BDCR_LSERDY) == 0){  // Wait until LSE clock ready
+    RCC->BDCR |= RCC_BDCR_LSEON;
+  }
+  
+  // Select LSE as RTC clock source
+  // BDCR = Backup Domain Control Register 
+  RCC->BDCR  &= ~RCC_BDCR_RTCSEL;    // RTCSEL[1:0]: 00 = No Clock, 01 = LSE, 10 = LSI, 11 = HSE
+  RCC->BDCR  |= RCC_BDCR_RTCSEL_0;   // Select LSE as RTC clock  
+  
+  RCC->APB1ENR1 &= ~RCC_APB1ENR1_PWREN;  // Power interface clock disable
+  
+  // Wait for the external capacitor Cext which is connected to the VLCD pin is charged (approximately 2ms for Cext=1uF) 
+  
+  // Enable LCD peripheral Clock
+  RCC->APB1ENR1 |= RCC_APB1ENR1_LCDEN;
+  
+  // Enable SYSCFG 
+  // RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 }
-	
+  
 
 void LCD_Clear(void){
   uint8_t counter = 0;
 
-  // Wait until LCD ready */  
-	while ((LCD->SR & LCD_SR_UDR) != 0); // Wait for Update Display Request Bit
+  /* Wait until LCD ready */  
+  while ((LCD->SR & LCD_SR_UDR) != 0); // Wait for Update Display Request Bit
   
   for (counter = 0; counter <= 15; counter++) {
     LCD->RAM[counter] = 0;
   }
 
   /* Update the LCD display */
-	LCD->SR |= LCD_SR_UDR; 
+  LCD->SR |= LCD_SR_UDR; 
 }
 
 
 // Setting bar on LCD, writes bar value in LCD frame buffer 
 void LCD_bar(void) {
 
-	// Wait until the off-screen buffer has been unlocked
+  // Wait until the off-screen buffer has been unlocked
   while ((LCD->SR & LCD_SR_UDR) != 0); // Wait for Update Display Request Bit
-	
+  
   LCD->RAM[4] &= ~(1U << 8 | 1U << 25);
   LCD->RAM[6] &= ~(1U << 8 | 1U << 25);
-	
-	if (BAR & 0x1) LCD->RAM[6] |= 1U << 8;  // Bar 0
-	if (BAR & 0x2) LCD->RAM[4] |= 1U << 8;  // Bar 1
-	if (BAR & 0x4) LCD->RAM[6] |= 1U << 25; // Bar 2
-	if (BAR & 0x8) LCD->RAM[4] |= 1U << 25; // Bar 3
-	
-	LCD->SR |= LCD_SR_UDR; 
+  
+  if (BAR & 0x1) LCD->RAM[6] |= 1U << 8;  // Bar 0
+  if (BAR & 0x2) LCD->RAM[4] |= 1U << 8;  // Bar 1
+  if (BAR & 0x4) LCD->RAM[6] |= 1U << 25; // Bar 2
+  if (BAR & 0x8) LCD->RAM[4] |= 1U << 25; // Bar 3
+  
+  LCD->SR |= LCD_SR_UDR; 
 }
 
 /**
@@ -344,7 +344,7 @@ void LCD_bar(void) {
   * @param  colon : flag indicating if a colon has to be add in front
   *         of displayed character.
   *         This parameter can be: colon_OFF or colon_ON.
-	* @param 	digit array with segment 
+  * @param   digit array with segment 
   * @retval None
   */
 static void LCD_Conv_Char_Seg(uint8_t* c, bool point, bool colon, uint8_t* digit) {
@@ -400,11 +400,11 @@ static void LCD_Conv_Char_Seg(uint8_t* c, bool point, bool colon, uint8_t* digit
     case '°' :
       ch = C_PERCENT_1;
       break;  
-		
+    
     case '%' :
       ch = C_PERCENT_2; 
       break;
-		
+    
     case 255 :
       ch = C_FULL;
       break ;
@@ -418,8 +418,8 @@ static void LCD_Conv_Char_Seg(uint8_t* c, bool point, bool colon, uint8_t* digit
     case '6':
     case '7':
     case '8':
-    case '9':			
-      ch = NumberMap[*c-0x30];		
+    case '9':      
+      ch = NumberMap[*c-0x30];    
       break;
           
     default:
@@ -446,13 +446,13 @@ static void LCD_Conv_Char_Seg(uint8_t* c, bool point, bool colon, uint8_t* digit
   if (colon)
   {
     ch |= 0x0020;
-  }		
+  }    
 
-	for (loop = 12,index=0 ;index < 4; loop -= 4,index++)
+  for (loop = 12,index=0 ;index < 4; loop -= 4,index++)
   {
     digit[index] = (ch >> loop) & 0x0f; /*To isolate the less significant digit */
   }
-	
+  
 }
 
 
@@ -463,7 +463,7 @@ static void LCD_Conv_Char_Seg(uint8_t* c, bool point, bool colon, uint8_t* digit
   * @param  Colon: flag indicating if a colon character has to be added in front
   *         of displayed character.         
   * @param  Position: position in the LCD of the character to write [1:6]
-	*/
+  */
 
 void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
   uint8_t digit[4];     /* Digit frame buffer */
@@ -475,15 +475,15 @@ void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
   while ((LCD->SR & LCD_SR_UDR) != 0); // Wait for Update Display Request Bit
   
   switch (position) {
-		
+    
     /* Position 1 on LCD (digit1)*/
     case 0:
-	
-			LCD->RAM[0] &= ~( 1U << 4 | 1U << 23 | 1U << 22 | 1U << 3 );
+  
+      LCD->RAM[0] &= ~( 1U << 4 | 1U << 23 | 1U << 22 | 1U << 3 );
       LCD->RAM[2] &= ~( 1U << 4 | 1U << 23 | 1U << 22 | 1U << 3 );
       LCD->RAM[4] &= ~( 1U << 4 | 1U << 23 | 1U << 22 | 1U << 3 );
       LCD->RAM[6] &= ~( 1U << 4 | 1U << 23 | 1U << 22 | 1U << 3 );
-			/* 1G 1B 1M 1E */
+      /* 1G 1B 1M 1E */
       LCD->RAM[0] |= ((digit[0] & 0x1) << 4) | (((digit[0] & 0x2) >> 1) << 23) | (((digit[0] & 0x4) >> 2) << 22) | (((digit[0] & 0x8) >> 3) << 3);
       /* 1F 1A 1C 1D  */
       LCD->RAM[2] |= ((digit[1] & 0x1) << 4) | (((digit[1] & 0x2) >> 1) << 23) | (((digit[1] & 0x4) >> 2) << 22) | (((digit[1] & 0x8) >> 3) << 3);
@@ -492,16 +492,16 @@ void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
       /* 1H 1J 1DP 1N  */
       LCD->RAM[6] |= ((digit[3] & 0x1) << 4) | (((digit[3] & 0x2) >> 1) << 23) | (((digit[3] & 0x4) >> 2) << 22) | (((digit[3] & 0x8) >> 3) << 3);
 
-			break;
+      break;
 
     /* Position 2 on LCD (digit2)*/
     case 1:
-			
-			LCD->RAM[0] &= ~( 1U << 6 | 1U << 13 | 1U << 12 | 1U << 5 );
+      
+      LCD->RAM[0] &= ~( 1U << 6 | 1U << 13 | 1U << 12 | 1U << 5 );
       LCD->RAM[2] &= ~( 1U << 6 | 1U << 13 | 1U << 12 | 1U << 5 );
       LCD->RAM[4] &= ~( 1U << 6 | 1U << 13 | 1U << 12 | 1U << 5 );
       LCD->RAM[6] &= ~( 1U << 6 | 1U << 13 | 1U << 12 | 1U << 5 );
-			/* 2G 2B 2M 2E */
+      /* 2G 2B 2M 2E */
       LCD->RAM[0] |= ((digit[0] & 0x1) << 6) | (((digit[0] & 0x2) >> 1) << 13) | (((digit[0] & 0x4) >> 2) << 12) | (((digit[0] & 0x8) >> 3) << 5);
       /* 2F 2A 2C 2D  */
       LCD->RAM[2] |= ((digit[1] & 0x1) << 6) | (((digit[1] & 0x2) >> 1) << 13) | (((digit[1] & 0x4) >> 2) << 12) | (((digit[1] & 0x8) >> 3) << 5);
@@ -510,16 +510,16 @@ void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
       /* 2H 2J 2DP 2N  */
       LCD->RAM[6] |= ((digit[3] & 0x1) << 6) | (((digit[3] & 0x2) >> 1) << 13) | (((digit[3] & 0x4) >> 2) << 12) | (((digit[3] & 0x8) >> 3) << 5);
 
-			break;
+      break;
     
     /* Position 3 on LCD (digit3)*/
     case 2:
-			
-			LCD->RAM[0] &= ~( 1U << 15 | 1U << 29 | 1U << 28 | 1U << 14 );
+      
+      LCD->RAM[0] &= ~( 1U << 15 | 1U << 29 | 1U << 28 | 1U << 14 );
       LCD->RAM[2] &= ~( 1U << 15 | 1U << 29 | 1U << 28 | 1U << 14 );
       LCD->RAM[4] &= ~( 1U << 15 | 1U << 29 | 1U << 28 | 1U << 14 );
       LCD->RAM[6] &= ~( 1U << 15 | 1U << 29 | 1U << 28 | 1U << 14 );
-			/* 3G 3B 3M 3E */
+      /* 3G 3B 3M 3E */
       LCD->RAM[0] |= ((digit[0] & 0x1) << 15) | (((digit[0] & 0x2) >> 1) << 29) | (((digit[0] & 0x4) >> 2) << 28) | (((digit[0] & 0x8) >> 3) << 14);
       /* 3F 3A 3C 3D */
       LCD->RAM[2] |= ((digit[1] & 0x1) << 15) | (((digit[1] & 0x2) >> 1) << 29) | (((digit[1] & 0x4) >> 2) << 28) | (((digit[1] & 0x8) >> 3) << 14);
@@ -528,68 +528,68 @@ void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
       /* 3H 3J 3DP  3N  */
       LCD->RAM[6] |= ((digit[3] & 0x1) << 15) | (((digit[3] & 0x2) >> 1) << 29) | (((digit[3] & 0x4) >> 2) << 28) | (((digit[3] & 0x8) >> 3) << 14);
 
-			break;
+      break;
     
     /* Position 4 on LCD (digit4)*/
     case 3:
-			
-			LCD->RAM[0] &= ~( 1U << 31 | 1U << 30);
-			LCD->RAM[1] &= ~( 1U << 1 | 1U << 0 );
+      
+      LCD->RAM[0] &= ~( 1U << 31 | 1U << 30);
+      LCD->RAM[1] &= ~( 1U << 1 | 1U << 0 );
       LCD->RAM[2] &= ~( 1U << 31 | 1U << 30);
-			LCD->RAM[3] &= ~( 1U << 1 | 1U << 0 );
+      LCD->RAM[3] &= ~( 1U << 1 | 1U << 0 );
       LCD->RAM[4] &= ~( 1U << 31 | 1U << 30);
-			LCD->RAM[5] &= ~( 1U << 1 | 1U << 0 );
+      LCD->RAM[5] &= ~( 1U << 1 | 1U << 0 );
       LCD->RAM[6] &= ~( 1U << 31 | 1U << 30);
-			LCD->RAM[7] &= ~( 1U << 1 | 1U << 0 );
-			/* 4G 4B 4M 4E */
+      LCD->RAM[7] &= ~( 1U << 1 | 1U << 0 );
+      /* 4G 4B 4M 4E */
       LCD->RAM[0] |= ((digit[0] & 0x1) << 31) | (((digit[0] & 0x8) >> 3) << 30);
-			LCD->RAM[1] |= (((digit[0] & 0x2) >> 1) << 1) | (((digit[0] & 0x4) >> 2) << 0);
+      LCD->RAM[1] |= (((digit[0] & 0x2) >> 1) << 1) | (((digit[0] & 0x4) >> 2) << 0);
       /* 4F 4A 4C 4D */
       LCD->RAM[2] |= ((digit[1] & 0x1) << 31) | (((digit[1] & 0x8) >> 3) << 30);
-			LCD->RAM[3] |= (((digit[1] & 0x2) >> 1) << 1) | (((digit[1] & 0x4) >> 2) << 0);
+      LCD->RAM[3] |= (((digit[1] & 0x2) >> 1) << 1) | (((digit[1] & 0x4) >> 2) << 0);
       /* 4Q 4K 4Col 4P  */
       LCD->RAM[4] |= ((digit[2] & 0x1) << 31) | (((digit[2] & 0x8) >> 3) << 30);
-			LCD->RAM[5] |= (((digit[2] & 0x2) >> 1) << 1) | (((digit[2] & 0x4) >> 2) << 0);
+      LCD->RAM[5] |= (((digit[2] & 0x2) >> 1) << 1) | (((digit[2] & 0x4) >> 2) << 0);
       /* 4H 4J 4DP  4N  */
       LCD->RAM[6] |= ((digit[3] & 0x1) << 31) | (((digit[3] & 0x8) >> 3) << 30);
-			LCD->RAM[7] |= (((digit[3] & 0x2) >> 1) << 1) | (((digit[3] & 0x4) >> 2) << 0);
+      LCD->RAM[7] |= (((digit[3] & 0x2) >> 1) << 1) | (((digit[3] & 0x4) >> 2) << 0);
 
-			break;
+      break;
     
     /* Position 5 on LCD (digit5)*/
     case 4:
-			
-			LCD->RAM[0] &= ~( 1U << 25 | 1U << 24);
-			LCD->RAM[1] &= ~( 1U << 3 | 1U << 2 );
+      
+      LCD->RAM[0] &= ~( 1U << 25 | 1U << 24);
+      LCD->RAM[1] &= ~( 1U << 3 | 1U << 2 );
       LCD->RAM[2] &= ~( 1U << 25 | 1U << 24);
-			LCD->RAM[3] &= ~( 1U << 3 | 1U << 2 );
+      LCD->RAM[3] &= ~( 1U << 3 | 1U << 2 );
       LCD->RAM[4] &= ~( 1U << 25 | 1U << 24 );
-			LCD->RAM[5] &= ~( 1U << 3 | 1U << 2 );
+      LCD->RAM[5] &= ~( 1U << 3 | 1U << 2 );
       LCD->RAM[6] &= ~( 1U << 25 | 1U << 24 );
-			LCD->RAM[7] &= ~( 1U << 3 | 1U << 2 );
-			/* 5G 5B 5M 5E */
+      LCD->RAM[7] &= ~( 1U << 3 | 1U << 2 );
+      /* 5G 5B 5M 5E */
       LCD->RAM[0] |= (((digit[0] & 0x2) >> 1) << 25) | (((digit[0] & 0x4) >> 2) << 24);
-			LCD->RAM[1] |= ((digit[0] & 0x1) << 3) | (((digit[0] & 0x8) >> 3) << 2);
+      LCD->RAM[1] |= ((digit[0] & 0x1) << 3) | (((digit[0] & 0x8) >> 3) << 2);
       /* 5F 5A 5C 5D */
       LCD->RAM[2] |= (((digit[1] & 0x2) >> 1) << 25) | (((digit[1] & 0x4) >> 2) << 24);
-			LCD->RAM[3] |= ((digit[1] & 0x1) << 3) | (((digit[1] & 0x8) >> 3) << 2);
+      LCD->RAM[3] |= ((digit[1] & 0x1) << 3) | (((digit[1] & 0x8) >> 3) << 2);
       /* 5Q 5K 5Col 5P  */
       LCD->RAM[4] |= (((digit[2] & 0x2) >> 1) << 25) | (((digit[2] & 0x4) >> 2) << 24);
-			LCD->RAM[5] |= ((digit[2] & 0x1) << 3) | (((digit[2] & 0x8) >> 3) << 2);
+      LCD->RAM[5] |= ((digit[2] & 0x1) << 3) | (((digit[2] & 0x8) >> 3) << 2);
       /* 5H 5J 5DP  5N  */
       LCD->RAM[6] |= (((digit[3] & 0x2) >> 1) << 25) | (((digit[3] & 0x4) >> 2) << 24);
-			LCD->RAM[7] |= ((digit[3] & 0x1) << 3) | (((digit[3] & 0x8) >> 3) << 2);
+      LCD->RAM[7] |= ((digit[3] & 0x1) << 3) | (((digit[3] & 0x8) >> 3) << 2);
 
-			break;
+      break;
     
     /* Position 6 on LCD (digit6)*/
     case 5:
-			
-			LCD->RAM[0] &= ~( 1U << 17 | 1U << 8 | 1U << 9 | 1U << 26 );
+      
+      LCD->RAM[0] &= ~( 1U << 17 | 1U << 8 | 1U << 9 | 1U << 26 );
       LCD->RAM[2] &= ~( 1U << 17 | 1U << 8 | 1U << 9 | 1U << 26 );
       LCD->RAM[4] &= ~( 1U << 17 | 1U << 8 | 1U << 9 | 1U << 26 );
       LCD->RAM[6] &= ~( 1U << 17 | 1U << 8 | 1U << 9 | 1U << 26 );
-			/* 6G 6B 6M 6E */
+      /* 6G 6B 6M 6E */
       LCD->RAM[0] |= ((digit[0] & 0x1) << 17) | (((digit[0] & 0x2) >> 1) << 8) | (((digit[0] & 0x4) >> 2) << 9) | (((digit[0] & 0x8) >> 3) << 26);
       /* 6F 6A 6C 6D */
       LCD->RAM[2] |= ((digit[1] & 0x1) << 17) | (((digit[1] & 0x2) >> 1) << 8) | (((digit[1] & 0x4) >> 2) << 9) | (((digit[1] & 0x8) >> 3) << 26);
@@ -598,7 +598,7 @@ void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
       /* 6H 6J 6DP  6N  */
       LCD->RAM[6] |= ((digit[3] & 0x1) << 17) | (((digit[3] & 0x2) >> 1) << 8) | (((digit[3] & 0x4) >> 2) << 9) | (((digit[3] & 0x8) >> 3) << 26);
 
-			break;
+      break;
     
      default:
       break;
@@ -608,17 +608,17 @@ void LCD_WriteChar(uint8_t* ch, bool point, bool colon, uint8_t position){
   LCD_bar();
 
   // Update the LCD display 
-	// Set the Update Display Request.
-	//
-	// Each time software modifies the LCD_RAM, it must set the UDR bit to transfer the updated
-	// data to the second level buffer. The UDR bit stays set until the end of the update and during
-	// this time the LCD_RAM is write protected.
-	//
-	// When the display is enabled, the update is performed only for locations for which
-	// commons are active (depending on DUTY). For example if DUTY = 1/2, only the
-	// LCD_DISPLAY of COM0 and COM1 will be updated.
-	LCD->SR |= LCD_SR_UDR; 								// Update display request. Cleared by hardware
-	//while ((LCD->SR & LCD_SR_UDD) == 0);	// Wait Until the LCD display is done
-	//LCD->CLR &= ~LCD_CLR_UDDC;            // Clear UDD flag
+  // Set the Update Display Request.
+  //
+  // Each time software modifies the LCD_RAM, it must set the UDR bit to transfer the updated
+  // data to the second level buffer. The UDR bit stays set until the end of the update and during
+  // this time the LCD_RAM is write protected.
+  //
+  // When the display is enabled, the update is performed only for locations for which
+  // commons are active (depending on DUTY). For example if DUTY = 1/2, only the
+  // LCD_DISPLAY of COM0 and COM1 will be updated.
+  LCD->SR |= LCD_SR_UDR;    // Update display request. Cleared by hardware
+  //while ((LCD->SR & LCD_SR_UDD) == 0);  // Wait Until the LCD display is done
+  //LCD->CLR &= ~LCD_CLR_UDDC;            // Clear UDD flag
   
 }
