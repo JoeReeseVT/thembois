@@ -1,17 +1,6 @@
-#ifndef LCD_H
-  #include "LCD.h"
-  #define LCD_H
-#endif
-
-#ifndef STDLIB_H
-  #include <stdio.h>
-  #define STDLIB_H
-#endif
-
-#ifndef STM32_H
-  #include "stm32l476xx.h"
-  #define STM32_H
-#endif
+#include "LCD.h"
+#include <stdio.h>
+#include "stm32l476xx.h"
 
 void delay(void) {
   unsigned long count;
