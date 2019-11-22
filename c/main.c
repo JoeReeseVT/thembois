@@ -31,13 +31,14 @@ int main(void) {
 //	  while (!inStr[5])
 	    readSix(&inStr[0]);
     
+#if 1
 		/* THIS FIXES A WEIRD ISSUE OF MISSING THE MSb OF THE TRANSMISSION */
-		for (i = 5; i > 0; i--) {
+    for (i = 5; i > 0; i--) {
 		  inStr[i] >>= 1; // Shift the char right by 1
       inStr[i] |= (inStr[i - 1] & 0x1) << 7; // Set the char's MSb to that of the previous char's LSb
 		}
 		inStr[0] >>= 1;
-		
+#endif
 		LCD_DisplayString(inStr);
 		
 		return 0;
