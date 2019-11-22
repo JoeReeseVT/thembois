@@ -4,6 +4,9 @@
 void readSix(uint8_t* str) {
 	uint8_t i;
 
+	while (!(SPI1->SR & SPI_SR_RXNE)) {;} // Just hang while the buffer is empty (0x0)
+	str[0] = *(uint8_t*)(&SPI1->DR); // Dummy bit will be overwritten
+	
 	for (i = 0; i < 6; i++) {
   	while (!(SPI1->SR & SPI_SR_RXNE)) {;} // Just hang while the buffer is empty (0x0)
 //    GPIOB->ODR |= 0x1 << 2;
