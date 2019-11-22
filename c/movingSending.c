@@ -3,12 +3,14 @@
 #include <stdint.h>
 #include "stm32l476xx.h"
 
+
 void delay(void) {
   unsigned long count;
   for(count = 0; count < 500000; count++) {} 
 }
 
 void movingString(uint8_t* str, uint8_t len) {
+  int baseIndexInStringStarter = 6; //says where the first index of the 2nd lcd will be
   unsigned int i, j;
   uint8_t buffer[6];
   uint8_t *mynewPointerTemp;
@@ -27,11 +29,11 @@ void movingString(uint8_t* str, uint8_t len) {
 	mynewPointerTemp = string_split(str + i);
 	for(int z = 0; z < 6; z++)
 	{
-		myString[z] = get_char(mynewPointerTemp, str, z, len);
+		myString[z] = get_char(mynewPointerTemp, str, z, len, baseIndexInStringStarter);
 	}
 	
 	sendSix(myString);
-	
+	baseIndexInStringStarter++;
     LCD_DisplayString(&buffer[0]);
 	
     delay();
@@ -40,7 +42,7 @@ void movingString(uint8_t* str, uint8_t len) {
 
 
 
-int baseIndexInString = 6; //global. says where the first index of the 2nd lcd will be
+
 
 
 uint8_t* string_split(uint8_t* myStringPointer)
@@ -50,7 +52,7 @@ uint8_t* string_split(uint8_t* myStringPointer)
 }
 
 //this will be for getting the character needed to be sent to the slave
-char get_char(uint8_t* newStringPointer, uint8_t* myStringPointer, int index, int stringLength)
+char get_char(uint8_t* newStringPointer, uint8_t* myStringPointer, int index, int stringLength, int baseIndexInString)
 {
 	
 	int currentIndexInString = baseIndexInString + index;
