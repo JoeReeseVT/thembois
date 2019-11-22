@@ -1,0 +1,35 @@
+RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;  
+GPIOA->MODER &= ~(GPIO_MODER_MODER0);
+
+
+uint8_t up = GPIOA->IDR & GPIO_IDR_IDR_3;
+
+uint8_t down = GPIOA->IDR & GPIO_IDR_IDR_5;
+		
+		
+		
+		
+		while(result)
+		{
+			Delay(1);
+			if(GPIOA->IDR & GPIO_IDR_IDR_0){
+				break;
+			}
+		}
+		
+
+void EXT_Initialize()
+{
+	NVIC->ISER[0] |= 0x100; //0001,0000,0000
+	
+
+
+}
+
+
+
+void EXTI0_IRQHandler()
+{
+
+
+}
