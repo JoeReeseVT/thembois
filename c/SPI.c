@@ -10,9 +10,6 @@
  void SPI_Init(bool isMaster) {
   RCC->AHB2ENR |= RCC_AHB2ENR_GPIOEEN; // Enable clock to GPIOE
 	RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;  // Enable clock to SPI1
-  
-  GPIOE->MODER &= ~((uint32_t)0xFF << 24);   // Pins 12-15 clear 
-  GPIOE->MODER |=   (uint32_t)0xAA << 24;    // Pins 12-15 AF mode
 
   GPIOE->OSPEEDR &= ~((uint32_t)0xFF << 24); // Clear output speed
 	GPIOE->OSPEEDR |=   (uint32_t)0xAA << 24;  // Set pins 12-15 output speed to 10 (high speed)
@@ -28,7 +25,7 @@
 		SPI1->CR1 |=   0x4 << 3;   // Set baud rate
   }
 		
-  SPI1->CR1 |=  SPI_CR1_CPOL;        // Set CPOL to be "idle high" & CPHA  to "falling edge"
+  SPI1->CR1 &= ~SPI_CR1_CPOL;  // Set CPOL to be "idle low" & CPHA  to "rising edge"
 	SPI1->CR1 &= ~SPI_CR1_CPHA;
 		
 	if (isMaster)
@@ -42,7 +39,7 @@
   SPI1->CR1 &= ~(0x5 << 11); // Clear CRCL and CRCEN
   SPI1->CR1 |=   0x1 << 9;   // Enable SSM (software slave management)
 	
-	if (isMaster)
+	if (isMaster)		
     SPI1->CR1 |=  SPI_CR1_MSTR;   // Set this board to Master
 	else
 	  SPI1->CR1 &= ~SPI_CR1_MSTR;   // ... Or don't
@@ -55,6 +52,9 @@
 
   SPI1->CR2 |= 0x1 << 12;   // Set FIFO reception threshold to 1/4 (when the FIFO holds less than 8-bits)
 	SPI1->CR1 |= SPI_CR1_SPE; // Enable SPI1
+	
+  GPIOE->MODER &= ~((uint32_t)0xFF << 24);   // Pins 12-15 clear 
+  GPIOE->MODER |=   (uint32_t)0xAA << 24;    // Pins 12-15 AF mode
 }
 
 
@@ -92,14 +92,6 @@ void readSix(uint8_t inBuf[]) {
  
 /* NVIC and GPIO config */
 void EXT_Initialize(void) {
-	//NVIC->ISER[0] |= 0x100; //0001,0000,0000
-	
-	/* DEBUG CODE */
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
-	GPIOB->MODER &= ~(0x3 << 4);
-	GPIOB->MODER |=  0x1 << 4;
-	/* END DEBUG CODE */
-	
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;  // Enable clock to GPIO port A
 	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN; // Enable clock to SYSCFG
 	
@@ -162,7 +154,7 @@ uint8_t strLen(uint8_t str[]) {
 }
 
 
-/* "Scroll" a string and fill a buffer with a 6-char slice of it*/
+/* "Scroll" a string and fill a buffer with a 6-char slice of it */
 void movingString(uint8_t str[]) {
 	static const uint8_t OFFSET = 6;
 	uint8_t len;

@@ -15,17 +15,15 @@ static volatile uint32_t scrollDelay = 500000;
 
 /* SPI communication functions */
 void SPI_Init(bool isMaster);
-uint8_t* stringSplit(uint8_t* myStringPointer);
-uint8_t get_char(uint8_t* newStringPointer, uint8_t* myStringPointer, uint8_t index, uint8_t stringLength);
 void sendSix(uint8_t* str);
 void readSix(uint8_t* str);
 
 /* Joystic interrupt functions */
 void EXT_Initialize(void);
-void EXTI0_IRQHandler(void); // ISR for "Joystick Up"
-void EXTI1_IRQHandler(void); // ISR for "Joustick Down"
+void EXTI3_IRQHandler(void);
+void EXTI9_5_IRQHandler(void);
 
-/* Function to scroll through a string */
+/* String scrolling */
 uint8_t strLen(uint8_t* str);
 void movingString(uint8_t* str);
 
